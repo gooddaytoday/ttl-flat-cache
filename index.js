@@ -53,7 +53,7 @@ class Cache {
 
     // loads the cache, if one does not exists for the given
     this.defaultTTL = isNaN(Number(ttl)) ? null : Number(ttl);
-    
+
     this.cache = flatCache.load(ns, dir);
 
     this.getKey = this.get;
@@ -80,7 +80,7 @@ class Cache {
     return false;
   }
 
-  __invadidate_key(key) {
+  __invalidate_key(key) {
 
     //
     let data = this.cache.getKey(key);
@@ -114,8 +114,8 @@ class Cache {
   }
 
   get(key) {
-    
-    this.__invadidate_key(key);
+
+    this.__invalidate_key(key);
 
     let data = this.cache.getKey(key);
 
@@ -127,12 +127,12 @@ class Cache {
   }
 
   del(key) {
-    
+
     return this.cache.removeKey(key);
   }
 
   ttl(key) {
-    return { key, expires: this.__invadidate_key(key) };
+    return { key, expires: this.__invalidate_key(key) };
   }
 
   set(key, value, ttl) {
