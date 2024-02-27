@@ -167,7 +167,7 @@ class Cache {
    * @param {string} key - The key to set the value for.
    * @param {*} value - The value to set.
    * @param {number} [ttl] - The time-to-live (TTL) value for the key. If not provided, the default TTL will be used.
-   * @returns {boolean} - True if the value was set successfully, false otherwise.
+   * @returns {void}
    */
   set(key, value, ttl) {
     ttl = to_num(ttl) || to_num(this.defaultTTL);
@@ -178,7 +178,15 @@ class Cache {
     };
 
     this.cache.setKey(key, data);
-    return this.cache.save();
+  }
+
+  /**
+   * Saves the cache without pruning.
+   * @param {boolean} [noPrune=true] - whether to prune the cache or not
+   * @return {void}
+   */
+  save(noPrune = true){
+    this.cache.save(noPrune);
   }
 }
 
