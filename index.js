@@ -64,8 +64,12 @@ class Cache {
     this.getKey = this.get;
     this.setKey = this.set;
     this.removeKey = this.del;
-    this.clearAll = this.cache.clearAll;
-    this.clearCacheById = this.cache.clearCacheById;
+    this.clearAll = function () {
+      flatCache.clearAll(dir);
+    };
+    this.clearCacheById = function () {
+      flatCache.clearCacheById(ns, dir);
+    };
   }
 
   /**
