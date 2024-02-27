@@ -57,6 +57,7 @@ class Cache {
     ns = ns || "default";
     dir = dir && fs.existsSync(path.dirname(dir)) ? dir : null;
     dir = path.join(os.tmpdir(), "cache", ns);
+    this.dir = dir;
 
     this.defaultTTL = isNaN(Number(ttl)) ? null : Number(ttl);
     this.cache = flatCache.load(ns, dir);
@@ -64,11 +65,9 @@ class Cache {
     this.getKey = this.get;
     this.setKey = this.set;
     this.removeKey = this.del;
+    /** Remove cache by directory path */
     this.clearAll = function () {
       flatCache.clearAll(dir);
-    };
-    this.clearCacheById = function () {
-      flatCache.clearCacheById(ns, dir);
     };
   }
 
