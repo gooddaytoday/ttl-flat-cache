@@ -4,7 +4,7 @@
   "description": "flat-cache with a ttl option",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "flat",
@@ -20,7 +20,9 @@
     "dayjs": "^1.10.7",
     "flat-cache": "^3.0.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mugendi/ttl-flat-cache.git"
