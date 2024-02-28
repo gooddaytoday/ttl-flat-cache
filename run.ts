@@ -1,3 +1,5 @@
+import Cache from "./src/index";
+
 // Copyright 2021 Anthony Mugendi
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +21,7 @@ const cacheOpts = {
   // ttl: 3600 * 24,
 //   dir: '/Directory-To-Save-Data'
 };
-
-const cache = require(".")(cacheOpts);
+const cache = new Cache(cacheOpts);
 
 let key = "test-key",
   value = {tyope:"Object", name:"Some Fancy Object to cache"};
