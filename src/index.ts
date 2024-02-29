@@ -30,6 +30,11 @@ interface CacheOptions {
     ttl?: number;
 }
 
+interface IData<TData = any> {
+    value: TData;
+    expires: Date | null;
+}
+
 /**
  * The `Cache` class is a cache implementation that allows storing and retrieving data with an optional time-to-live (TTL) value.
  * It uses the `flat-cache` library to persist the cache data to disk.
@@ -78,7 +83,7 @@ export default class Cache {
      * @returns - The remaining time-to-live (TTL) as a string if the key has not expired, or null if the key has expired.
      */
     private invalidateKey(key: string): string | null {
-        const data = this.cache.getKey(key);
+        const data = <IData>this.cache.getKey(key);
 
         if (data && data.expires) {
             if (this.isExpired(data.expires)) {
@@ -97,18 +102,18 @@ export default class Cache {
      * @returns {Object} - An object with all the cached data.
      */
     public all(): Record<string, any> {
-        const data = this.cache.all();
+        const result = Object.create(null);
+        const data = <Record<string, IData>>this.cache.all();
 
         Object.keys(data).forEach(key => {
             if (this.isExpired(data[key].expires)) {
-                delete data[key];
                 this.cache.removeKey(key);
             } else {
-                data[key] = data[key].value;
+                result[key] = data[key].value;
             }
         });
 
-        return data;
+        return result;
     }
 
     /**
@@ -118,7 +123,7 @@ export default class Cache {
      */
     public get(key: string): any {
         this.invalidateKey(key);
-        const data = this.cache.getKey(key);
+        const data = <IData>this.cache.getKey(key);
         return data ? data.value : null;
     }
 
@@ -150,7 +155,7 @@ export default class Cache {
     public set(key: string, value: any, ttl?: number): void {
         const effectiveTTL = to_num(ttl) || to_num(this.defaultTTL);
 
-        const data = {
+        const data: IData = {
             expires: effectiveTTL ? dayjs().add(effectiveTTL, "seconds").toDate() : null,
             value,
         };
