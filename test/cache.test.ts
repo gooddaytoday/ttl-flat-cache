@@ -47,6 +47,8 @@ describe('Cache', () => {
       const data = cache.all();
       expect(data.key1).toBe('value1');
       expect(data.key2).toBe('value2');
+      expect(cache.get('key1')).toBe('value1');
+      expect(cache.get('key2')).toBe('value2');
     });
 
     // Cache can clear all key-value pairs in the cache
