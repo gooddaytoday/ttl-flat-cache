@@ -1,6 +1,6 @@
 {
   "name": "ttl-flat-cache",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "flat-cache with a ttl option",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
